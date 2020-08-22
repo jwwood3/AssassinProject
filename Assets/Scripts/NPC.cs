@@ -9,7 +9,8 @@ public class NPC : MonoBehaviour
     [SerializeField] private Vector2 dest;
     [SerializeField] private float speed;
     [SerializeField] private float rotSpeed;
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Camera cam;
     private float boardX;
     private float boardY;
     // Start is called before the first frame update
@@ -19,12 +20,21 @@ public class NPC : MonoBehaviour
         boardY = Statics.getBoard().y;
         newDest();
         isFindingRoute = true;
-        rb = this.gameObject.GetComponent<Rigidbody>();
     }
 
     void newDest()
     {
         dest = new Vector2(Random.Range(-0.5f * boardX, 0.5f * boardX), Random.Range(-0.5f * boardY, 0.5f * boardY));
+    }
+
+    public void cameraOn()
+    {
+        cam.enabled = true;
+    }
+
+    public void cameraOff()
+    {
+        cam.enabled = false;
     }
 
     // Update is called once per frame
@@ -53,7 +63,7 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                print("moving");
+                //print("moving");
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(towardGoal.normalized), rotSpeed*Time.fixedDeltaTime);
             }
         }
