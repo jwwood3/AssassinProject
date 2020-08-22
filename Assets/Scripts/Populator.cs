@@ -15,7 +15,17 @@ public class Populator : MonoBehaviour
     {
         boardX = Statics.getBoard().x;
         boardY = Statics.getBoard().y;
-        for(int i = 0; i < numNPCs; i++)
+        populate();
+    }
+
+    void populate()
+    {
+        if (numNPCs >= 1)
+        {
+            GameObject camGuy = Instantiate(NPC, getRandomPos(), Quaternion.identity);
+            Statics.setCameraGuy(camGuy.GetComponent<NPC>());
+        }
+        for (int i = 0; i < (numNPCs - 1); i++)
         {
             Instantiate(NPC, getRandomPos(), Quaternion.identity);
         }
@@ -31,6 +41,10 @@ public class Populator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Statics.shouldReset())
+        {
+            populate();
+            Statics.iDidTheThing();
+        }
     }
 }
