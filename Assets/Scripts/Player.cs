@@ -44,10 +44,12 @@ public class Player : MonoBehaviour
                 print("Killed Someone: " + hit.collider.tag);
                 if(hit.collider.tag == "NPC")
                 {
+                    NPC npc = hit.collider.gameObject.GetComponent<NPC>();
                     Statics.scorePoints(Statics.getNPCScore());
-                    if(Statics.getCameraGuy().gameObject.GetInstanceID() == hit.collider.gameObject.GetInstanceID())
+                    if(Statics.hasPOV(npc))
                     {
-                        Statics.chooseRandomCamGuy();
+                        //Statics.removeCamGuy(npc);
+                        //Statics.chooseRandomCamGuy();
                     }
                     Destroy(hit.collider.gameObject);
                 }

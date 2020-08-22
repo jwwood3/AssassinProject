@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float rotSpeed;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Camera cam;
+    public Camera cam;
     private float boardX;
     private float boardY;
     // Start is called before the first frame update

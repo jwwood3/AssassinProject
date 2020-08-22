@@ -20,12 +20,18 @@ public class Populator : MonoBehaviour
 
     void populate()
     {
-        if (numNPCs >= 1)
+        if (numNPCs >= 4)
         {
             GameObject camGuy = Instantiate(NPC, getRandomPos(), Quaternion.identity);
             Statics.setCameraGuy(camGuy.GetComponent<NPC>());
+            camGuy = Instantiate(NPC, getRandomPos(), Quaternion.identity);
+            Statics.setCameraGuy(camGuy.GetComponent<NPC>());
+            camGuy = Instantiate(NPC, getRandomPos(), Quaternion.identity);
+            Statics.setCameraGuy(camGuy.GetComponent<NPC>());
+            camGuy = Instantiate(NPC, getRandomPos(), Quaternion.identity);
+            Statics.setCameraGuy(camGuy.GetComponent<NPC>());
         }
-        for (int i = 0; i < (numNPCs - 1); i++)
+        for (int i = 0; i < (numNPCs - 4); i++)
         {
             Instantiate(NPC, getRandomPos(), Quaternion.identity);
         }
