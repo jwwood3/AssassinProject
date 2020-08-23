@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Populator : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Populator : MonoBehaviour
     [SerializeField] private GameObject Target;
     [SerializeField] private GameObject Player;
     [SerializeField] private int numNPCs = 25;
+    [SerializeField] private TextMeshProUGUI scoreThing;
+    public static float timer;
     private float boardX;
     private float boardY;
     // Start is called before the first frame update
@@ -16,6 +19,7 @@ public class Populator : MonoBehaviour
         boardX = Statics.getBoard().x;
         boardY = Statics.getBoard().y;
         populate();
+        timer = 0.0f;
     }
 
     void populate()
@@ -47,10 +51,12 @@ public class Populator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
         if (Statics.shouldReset())
         {
             populate();
             Statics.iDidTheThing();
         }
+        scoreThing.text = Statics.getPoints().ToString();
     }
 }

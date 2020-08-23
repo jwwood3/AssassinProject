@@ -11,6 +11,7 @@ public class Statics : MonoBehaviour
     [SerializeField] private static int NPCScore = -5;
     [SerializeField] private static int TargetScore = 25;
     [SerializeField] private static bool resetPlease = false;
+    [SerializeField] private static int bullets = 5;
     
 
     public static Vector2 getBoard()
@@ -41,6 +42,16 @@ public class Statics : MonoBehaviour
     public static int getPoints()
     {
         return score;
+    }
+
+    public static bool hasBullets()
+    {
+        return bullets > 0;
+    }
+
+    public static void shoot()
+    {
+        bullets--;
     }
 
     public static void setCameraGuy(NPC newGuy)
@@ -127,7 +138,7 @@ public class Statics : MonoBehaviour
         resetPlease = false;
     }
 
-    public static void reset()
+    public static void reset(bool res = true)
     {
         foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
         {
@@ -141,6 +152,7 @@ public class Statics : MonoBehaviour
         {
             Destroy(player);
         }
-        resetPlease = true;
+
+        resetPlease = res;
     }
 }

@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!Statics.hasBullets())
+        {
+            Statics.reset(false);
+        }
         if (Input.GetKeyDown("space"))
         {
             print("buttonHit");
@@ -38,24 +42,26 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown("return"))
         {
+            Statics.shoot();
             print("Gun fired");
-            if(Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
             {
                 print("Killed Someone: " + hit.collider.tag);
-                if(hit.collider.tag == "NPC")
+                if (hit.collider.tag == "NPC")
                 {
                     NPC npc = hit.collider.gameObject.GetComponent<NPC>();
                     Statics.scorePoints(Statics.getNPCScore());
-                    if(Statics.hasPOV(npc))
+                    if (Statics.hasPOV(npc))
                     {
                         //Statics.removeCamGuy(npc);
                         //Statics.chooseRandomCamGuy();
                     }
                     Destroy(hit.collider.gameObject);
                 }
-                else if(hit.collider.tag == "Target")
+                else if (hit.collider.tag == "Target")
                 {
                     Statics.scorePoints(Statics.getTargetScore());
+                    Statics.scorePoints(Mathf.FloorToInt((60.0f / Populator.timer) + 0.5f));
                     Statics.reset();
                 }
             }
@@ -83,6 +89,25 @@ public class Player : MonoBehaviour
         {
             rb.MovePosition(transform.position - (transform.forward * speed * Time.fixedDeltaTime));
         }
+        float newX = transform.position.x;
+        float newY = transform.position.z;
+        if (transform.position.x > boardX)
+        {
+            newX = boardX;
+        }
+        if (transform.position.x < -boardX)
+        {
+            newX = -boardX;
+        }
+        if (transform.position.z > boardY)
+        {
+            newY = boardY;
+        }
+        if (transform.position.z < -boardY)
+        {
+            newY = -boardY;
+        }
+        transform.position = new Vector3(newX, transform.position.y, newY);
         
     }
 
